@@ -466,6 +466,18 @@
                 </div>
 
                 <div class="step">
+                    <h2>🔄 Atjaunināšana</h2>
+                    <div class="alert alert-info">
+                        <strong>💡 Nākamajām atjaunināšanām:</strong><br>
+                        Lai atjauninātu Property Manager uz jaunāko versiju no Git, izmantojiet:<br>
+                        <a href="update.php" style="color: #0066cc; font-weight: 600;">update.php</a> - Automātisks atjaunināšanas vednis<br><br>
+                        <small>
+                            ⚠️ Piezīme: update.php prasa Git un veido automātisku rezerves kopiju pirms atjaunināšanas.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="step">
                     <h2>📚 Noderīga Informācija</h2>
                     <p><strong>Projekta struktūra:</strong></p>
                     <ul>
@@ -475,6 +487,7 @@
                         <li><code>database/</code> - SQL shēmas</li>
                         <li><code>logs/</code> - Aplikācijas logi</li>
                         <li><code>public/uploads/</code> - Augšupielādētie faili</li>
+                        <li><code>backups/</code> - Automātiskās rezerves kopijas</li>
                     </ul>
                 </div>
                 <?php

@@ -9,6 +9,10 @@ public/uploads/*
 logs/*
 !logs/.gitkeep
 
+# Backups
+backups/*
+!backups/README.md
+
 # IDE
 .idea/
 .vscode/
