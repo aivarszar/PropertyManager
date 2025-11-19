@@ -271,7 +271,7 @@
             }
 
             function createBackup() {
-                $backupDir = __DIR__ . '/backups';
+                $backupDir = dirname(__DIR__) . '/backups';
                 if (!is_dir($backupDir)) {
                     mkdir($backupDir, 0755, true);
                 }
@@ -281,11 +281,11 @@
 
                 // Create backup using rsync or cp
                 $excludes = '--exclude=backups --exclude=.git --exclude=logs --exclude=public/uploads';
-                $result = execCommand("rsync -av {$excludes} " . __DIR__ . "/ {$backupPath}/");
+                $result = execCommand("rsync -av {$excludes} " . dirname(__DIR__) . "/ {$backupPath}/");
 
                 if (!$result['success']) {
                     // Fallback to cp if rsync not available
-                    $result = execCommand("cp -r " . __DIR__ . " {$backupPath}");
+                    $result = execCommand("cp -r " . dirname(__DIR__) . " {$backupPath}");
                 }
 
                 return $result['success'] ? $backupPath : false;
@@ -305,7 +305,7 @@
             }
 
             // Check if not installed
-            if (!file_exists(__DIR__ . '/config/config.php')) {
+            if (!file_exists(dirname(__DIR__) . '/config/config.php')) {
                 echo '<div class="alert alert-error">';
                 echo '❌ <strong>Aplikācija nav instalēta!</strong><br>';
                 echo 'Lūdzu vispirms palaidiet <a href="install.php">install.php</a>';
@@ -382,7 +382,7 @@
                         echo '✅ <strong>Jūsu instalācija ir jau uz jaunākās versijas!</strong><br>';
                         echo 'Nav nepieciešama atjaunināšana.';
                         echo '</div>';
-                        echo '<a href="public/index.php" class="btn">Doties uz aplikāciju →</a>';
+                        echo '<a href="index.php" class="btn">Doties uz aplikāciju →</a>';
                     } else {
                         echo '<div class="alert alert-info">';
                         echo '📦 <strong>Pieejama jauna versija!</strong><br>';
@@ -548,7 +548,7 @@
                             🔄 Veikt Atjaunināšanu
                         </button>
                         <a href="?step=3" class="btn btn-secondary">← Atpakaļ</a>
-                        <a href="public/index.php" class="btn btn-secondary">Atcelt</a>
+                        <a href="index.php" class="btn btn-secondary">Atcelt</a>
                     </form>
 
                     <script>
@@ -601,7 +601,7 @@
                         echo '</div>';
 
                         // Check if database migrations needed
-                        $migrationFile = __DIR__ . '/database/migrations.sql';
+                        $migrationFile = dirname(__DIR__) . '/database/migrations.sql';
                         if (file_exists($migrationFile)) {
                             echo '<div class="alert alert-warning">';
                             echo '⚠️ Atrasts datubāzes migrācijas fails!<br>';
@@ -611,8 +611,8 @@
                         }
 
                         // Clear any caches if they exist
-                        if (is_dir(__DIR__ . '/cache')) {
-                            array_map('unlink', glob(__DIR__ . '/cache/*'));
+                        if (is_dir(dirname(__DIR__) . '/cache')) {
+                            array_map('unlink', glob(dirname(__DIR__) . '/cache/*'));
                             echo '<div class="alert alert-info">🧹 Cache notīrīts.</div>';
                         }
 
@@ -630,7 +630,7 @@
                         echo 'Property Manager ir veiksmīgi atjaunināts uz jaunāko versiju.';
                         echo '</div>';
 
-                        echo '<a href="public/index.php" class="btn">Doties uz Aplikāciju →</a>';
+                        echo '<a href="index.php" class="btn">Doties uz Aplikāciju →</a>';
 
                     } else {
                         echo '<div class="alert alert-error">';

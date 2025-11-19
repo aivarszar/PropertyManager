@@ -153,12 +153,12 @@
             $success = [];
 
             // Check if already installed
-            if (file_exists(__DIR__ . '/config/config.php') && $step === 1) {
+            if (file_exists(dirname(__DIR__) . '/config/config.php') && $step === 1) {
                 echo '<div class="alert alert-warning">';
                 echo '<strong>⚠️ Brīdinājums:</strong> Aplikācija jau ir instalēta!<br>';
                 echo 'Konfigurācijas fails jau pastāv. Ja vēlaties reinstalēt, lūdzu dzēsiet <code>config/config.php</code> failu.';
                 echo '</div>';
-                echo '<a href="public/index.php" class="btn">Doties uz aplikāciju →</a>';
+                echo '<a href="index.php" class="btn">Doties uz aplikāciju →</a>';
                 exit;
             }
 
@@ -176,9 +176,9 @@
                             'MBString Extension' => extension_loaded('mbstring'),
                             'GD Extension (attēliem)' => extension_loaded('gd'),
                             'Session Support' => function_exists('session_start'),
-                            'config/ direktorija rakstāma' => is_writable(__DIR__ . '/config'),
-                            'public/uploads/ direktorija rakstāma' => is_writable(__DIR__ . '/public/uploads'),
-                            'logs/ direktorija rakstāma' => is_writable(__DIR__ . '/logs'),
+                            'config/ direktorija rakstāma' => is_writable(dirname(__DIR__) . '/config'),
+                            'public/uploads/ direktorija rakstāma' => is_writable(dirname(__DIR__) . '/public/uploads'),
+                            'logs/ direktorija rakstāma' => is_writable(dirname(__DIR__) . '/logs'),
                         ];
 
                         $all_ok = true;
@@ -283,7 +283,7 @@
                     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
                     // Read and execute schema.sql
-                    $schema = file_get_contents(__DIR__ . '/database/schema.sql');
+                    $schema = file_get_contents(dirname(__DIR__) . '/database/schema.sql');
                     $pdo->exec($schema);
 
                     echo '<div class="alert alert-success">✅ Datubāzes tabulas izveidotas veiksmīgi!</div>';
@@ -389,7 +389,7 @@
                 $config = $_SESSION['db_config'];
 
                 // Check if config.php already exists
-                $config_path = __DIR__ . '/config/config.php';
+                $config_path = dirname(__DIR__) . '/config/config.php';
                 if (file_exists($config_path)) {
                     echo '<div class="alert alert-warning">';
                     echo '⚠️ Konfigurācijas fails jau pastāv un NETIKA pārrakstīts.<br>';
@@ -397,7 +397,7 @@
                     echo '</div>';
                 } else {
                     // Create config.php from template
-                    $config_template = file_get_contents(__DIR__ . '/config/config.example.php');
+                    $config_template = file_get_contents(dirname(__DIR__) . '/config/config.example.php');
 
                     // Replace placeholders
                     $config_content = str_replace(
@@ -428,7 +428,7 @@
                 }
 
                 // Create .htaccess if doesn't exist
-                $htaccess_path = __DIR__ . '/.htaccess';
+                $htaccess_path = dirname(__DIR__) . '/.htaccess';
                 if (!file_exists($htaccess_path)) {
                     $htaccess_content = "# Deny access to sensitive files\n";
                     $htaccess_content .= "<FilesMatch \"\\.(sql|md|json|lock|log)$\">\n";
@@ -457,12 +457,12 @@
 
                     <div class="alert alert-info">
                         <strong>Nākamie soļi:</strong><br>
-                        1. <a href="public/index.php">Doties uz aplikāciju</a><br>
+                        1. <a href="index.php">Doties uz aplikāciju</a><br>
                         2. Pieslēgties ar izveidotajiem administratora datiem<br>
                         3. Sākt pievienot īpašumus un īrniekus!
                     </div>
 
-                    <a href="public/index.php" class="btn">Doties uz Property Manager →</a>
+                    <a href="index.php" class="btn">Doties uz Property Manager →</a>
                 </div>
 
                 <div class="step">
